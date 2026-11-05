@@ -4,8 +4,6 @@ import { ShieldCheck, Truck, RefreshCw, Headphones } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { ProductCard } from "@/components/product-card";
 
-export const revalidate = 60; // Cache for 60 seconds (ISR)
-
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
