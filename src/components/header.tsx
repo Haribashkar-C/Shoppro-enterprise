@@ -1,0 +1,6 @@
+"use client";
+import Link from "next/link";
+import {ShoppingBag,Search,User,Heart,Package} from "lucide-react";
+import {useStore} from "./store-provider";
+import {useState} from "react";
+export function Header(){const {count,user}=useStore();const [q,setQ]=useState("");return <header className="topbar"><div className="nav-inner"><Link className="logo" href="/"><span className="logo-mark"><ShoppingBag size={18}/></span>ShopPro</Link><form className="relative searchbar" action="/products"><Search size={16}/><input name="q" placeholder="Search products..." value={q} onChange={e=>setQ(e.target.value)}/><button aria-label="Search" style={{border:0,background:"none",color:"#63748b"}}>⌕</button></form><nav className="navlinks"><Link href="/products">Products</Link><Link href="/products?category=electronics">Electronics</Link><Link href="/products?category=fashion">Fashion</Link>{user?.role==="ADMIN"&&<Link href="/admin">Admin</Link>}</nav><div className="nav-actions"><Link href="/wishlist" aria-label="Wishlist"><Heart size={18}/></Link><Link href="/cart" aria-label="Shopping cart"><ShoppingBag size={18}/><span className="count">{count}</span></Link>{user?<Link href="/account" aria-label="Account"><User size={18}/></Link>:<Link className="hide-mobile" href="/login"><User size={18}/></Link>}</div></div></header>}

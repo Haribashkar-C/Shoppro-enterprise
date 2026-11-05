@@ -1,0 +1,6 @@
+import { z } from "zod";
+export const registerSchema = z.object({name:z.string().trim().min(2).max(100),email:z.string().email().max(254),password:z.string().min(10).max(72).regex(/[A-Z]/,"Include an uppercase letter").regex(/[a-z]/,"Include a lowercase letter").regex(/[0-9]/,"Include a number")});
+export const loginSchema = z.object({email:z.string().email(),password:z.string().min(1).max(72)});
+export const cartSchema = z.object({productId:z.string().min(1),quantity:z.number().int().min(1).max(20)});
+export const productSchema = z.object({name:z.string().trim().min(2).max(160),description:z.string().max(5000),brand:z.string().max(100).optional(),sku:z.string().trim().min(2).max(80),price:z.number().positive().max(100000000),compareAtPrice:z.number().positive().optional(),stock:z.number().int().min(0).max(1000000),imageUrl:z.string().url().max(1000),categoryId:z.string().min(1),featured:z.boolean().default(false)});
+export const checkoutSchema = z.object({shippingName:z.string().trim().min(2).max(120),phone:z.string().regex(/^[0-9+() -]{8,20}$/),addressLine:z.string().trim().min(5).max(250),city:z.string().trim().min(2).max(100),state:z.string().trim().min(2).max(100),postalCode:z.string().trim().min(4).max(12),paymentMethod:z.enum(["COD"]),notes:z.string().max(500).optional()});

@@ -1,0 +1,3 @@
+import {currentUser} from "@/lib/auth";import {redirect} from "next/navigation";import {prisma} from "@/lib/prisma";import {ProductCard} from "@/components/product-card";
+export const dynamic="force-dynamic";
+export default async function Wishlist(){const u=await currentUser();if(!u)redirect("/login");const rows=await prisma.wishlist.findMany({where:{userId:u.id},include:{product:true}});return <div className="container page"><div className="section-head"><div><span className="eyebrow">SAVED FOR LATER</span><h2>My wishlist</h2></div></div><div className="product-grid">{rows.map(x=><ProductCard key={x.id} product={x.product}/>)}</div>{!rows.length&&<div className="empty">Your wishlist is empty.</div>}</div>}
